@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="th"></html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คัดกรองโรคผิวหนัง</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+    background:linear-gradient(135deg,#dbeafe,#f8fbff,#eef8ff);
+    min-height: 100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
+}
+
+h1{
+    text-align:center;
+    font-size: 34px;
+    font-weight: 700;
+    background: linear-gradient(90deg,#2563eb,#06b6d4);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color:transparent;
+    margin-bottom:20px;
+}
+
+.info-box{
+    background:#eef6ff;
+    border-left:5px solid #3498db;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.info-box h3{
+    margin-bottom:10px;
+}
+
+.upload{
+    text-align:center;
+    margin:20px 0;
+}
+
+input[type=file]{
+    margin:15px 0;
+}
+
+img{
+    max-width:100%;
+    display:none;
+    margin:auto;
+    border-radius:20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+button{
+    width:100%;
+    padding:15px;
+    background:linear-gradient(90deg,#2563eb,#3b82f6);
+    color:white;
+    border:none;
+    border-radius:15px;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:15px;
+    transition: 3s;
+}
+
+button:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(35,99,235,.3);
+}
+
+.result{
+    margin-top:25px;
+    background:white;
+    border: 1px solid #dbeafe;
+    border-radius:10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    padding:20px;
+}
+
+.progress{
+    width:100%;
+    height:25px;
+    background:#ddd;
+    border-radius:30px;
+    overflow:hidden;
+    margin:10px 0;
+}
+
+#progress-bar{
+    width:0%;
+    height:100%;
+    background:#27ae60;
+    color:white;
+    text-align:center;
+    line-height:25px;
+    transition:.5s;
+}
+
+ul{
+    margin-left:20px;
+    margin-top:10px;
+}
+.prediction{
+
+    margin-bottom:15px;
+
+}
+
+.prediction-name{
+
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:5px;
+    font-weight:bold;
+
+}
+
+.prediction-bar{
+
+    width:100%;
+    height:18px;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
+
+}
+
+.prediction-fill{
+
+    height:100%;
+    background:linear-gradient(90deg,#06b6d4,#2563eb);
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🩺ระบบคัดกรองโรคผิวหนังเบื้องต้น</h1>
+
+<div class="info-box">
+<h3>วิธีใช้งาน</h3>
+
+ <ol>
+    <li>เลือกรูปภาพ</li>
+    <li>รอแสดงตัวอย่างรูป</li>
+    <li>กดปุ่มเริ่มการวิเคราะห์</li>
+    <li>รอผลลัพธ์จาก AI</li>
+ </ol>
+<br>
+
+    <h3>ตัวอย่างโรคที่รองรับ</h3>
+
+    <ul>
+        <li>Acne (สิว)</li>
+        <li>Ringworm (กลาก)</li>
+        <li>Urticaria (ลมพิษ)</li>
+        <li>Vitiligo (ด่างขาว)</li>
+        <li>Hyperpigmentation (รอยดำ/ผิวคล้ำ)</li>
+        <li>Nevus (ไฝ)</li>
+        <li>Nail Psoriasis (สะเก็ดเงินที่เล็บ)</li>
+        <li>Normal (ผิวปกติ)</li>
+        <li>Athlete's foot (น้ำกัดเท้า)</li>
+        <li>Cellulitis (เนื้อเยื่ออักเสบ)</li>
+        <li>Chickenpox (อีสุกอีใส)</li>
+        <li>Cutaneous larva migrans(โรคพยาธิไชผิวหนัง)</li>
+        <li>Eczema</li>
+        <li>โรคมือเท้าปาก(HFMD)</li>
+        <li>โรคตากุ้งยิง(Hordeolum)</li>
+        <li>Longitudinal nail pigmentation</li>
+        <li>เชื้อราที่เล็บ(Nail fungus)</li>
+        <li>โรคหิด(Scabies)</li>
+        <li>โรคงูสวัด(Shingles)</li>
+        <li>SJS-TEN</li>
+    </ul>
+
+</div>
+
+<div class="upload">
+
+<input type="file" id="fileInput" accept="image/*">
+
+<img id="preview">
+
+<button onclick="analyze()">เริ่มการวิเคราะห์</button>
+
+</div>
+
+<div class="result">
+
+<h2>📊ผลการวิเคราะห์</h2>
+
+<p><b>โรคที่พบ :</b>
+<span id="disease">-</span>
+</p>
+
+<p><b>ความมั่นใจ :</b>
+<span id="confidence">0%</span>
+</p>
+
+<h3>📖 ความหมายของโรค</h3>
+
+<div id="description"
+style="
+background:#f8fafc;
+padding:15px;
+border-radius:10px;
+margin-top:10px;
+border-left:4px solid #2563eb;">
+ยังไม่มีข้อมูล
+</div>
+
+<div class="progress">
+<div id="progress-bar">0%</div>
+</div>
+<h3>โรคที่มีความเป็นไปได้</h3>
+
+<ul id="predictions">
+</ul>
+<h3>📍อาการ</h3>
+
+<ul id="symptoms">
+<li>ยังไม่มีข้อมูล</li>
+
+</ul>
+
+<h3>💊คำแนะนำ</h3>
+
+<ul id="advice">
+<li>ยังไม่มีข้อมูล</li>
+</ul>
+
+</div>
+
+</div>
+
+<script>
+    const fileInput = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+
+fileInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+    }
+
+});
+
+async function analyze() {
+
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("กรุณาเลือกรูปภาพก่อน");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    document.getElementById("disease").innerText = "กำลังวิเคราะห์...";
+    document.getElementById("confidence").innerText = "...";
+
+    document.getElementById("progress-bar").style.width = "0%";
+    document.getElementById("progress-bar").innerText = "0%";
+
+    try {
+
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+        const predictionDiv =
+document.getElementById("predictions");
+
+predictionDiv.innerHTML = "";
+
+data.predictions.forEach(function(item){
+
+    predictionDiv.innerHTML += `
+
+    <div class="prediction">
+
+        <div class="prediction-name">
+
+            <span>${item.disease}</span>
+
+            <span>${item.confidence}%</span>
+
+        </div>
+
+        <div class="prediction-bar">
+
+            <div
+                class="prediction-fill"
+                style="width:${item.confidence}%">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+});
+
+        document.getElementById("disease").innerText = data.disease;
+
+        document.getElementById("confidence").innerText =
+            data.confidence + "%";
+
+        document.getElementById("progress-bar").style.width =
+            data.confidence + "%";
+
+        document.getElementById("progress-bar").innerText =
+            data.confidence + "%";
+            document.getElementById("description").innerText =
+    data.meaning;
+
+        const symptomList = document.getElementById("symptoms");
+        symptomList.innerHTML = "";
+
+        data.symptoms.forEach(function(item){
+
+            const li = document.createElement("li");
+            li.textContent = item;
+            symptomList.appendChild(li);
+
+        });
+
+        const adviceList = document.getElementById("advice");
+        adviceList.innerHTML = "";
+
+        data.advice.forEach(function(item){
+
+            const li = document.createElement("li");
+            li.textContent = item;
+            adviceList.appendChild(li);
+
+        });
+
+    }
+
+    catch (error) {
+
+        alert("เชื่อมต่อ AI ไม่สำเร็จ");
+        console.log(error);
+
+    }
+
+}
+</script>
+
+</body>
+</html>

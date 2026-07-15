@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,render_template
 from flask_cors import CORS
 from inference_sdk import InferenceHTTPClient
 import tempfile
@@ -129,7 +129,7 @@ disease_info = {
 
 @app.route("/")
 def home():
-    return "Skin AI API is running successfully!"
+    return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():

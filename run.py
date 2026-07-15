@@ -11,8 +11,8 @@ CORS(app)
 
 # โหลดโมเดล
 CLIENT = InferenceHTTPClient(
-    api_url="https://classify.roboflow.com",
-    api_key="xQ7NYKHaBpLpiJyZvQmY"
+    api_url=os.environ["ROBOFLOW_API_URL"],
+    api_key=os.environ["ROBOFLOW_API_KEY"]
 )
 
 MODEL_ID = "project-tfamf/1"

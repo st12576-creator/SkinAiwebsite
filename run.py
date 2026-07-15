@@ -127,6 +127,9 @@ disease_info = {
     },   
 }
 
+@app.route("/")
+def home():
+    return "Skin AI API is running successfully!"
 
 @app.route("/predict", methods=["POST"])
 def predict():

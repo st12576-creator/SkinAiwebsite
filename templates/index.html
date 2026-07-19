@@ -14,18 +14,18 @@
 
 body{
     font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
-    background:linear-gradient(135deg,#dbeafe,#f8fbff,#eef8ff);
+    background:#f8fafc;
     min-height: 100vh;
     padding:30px;
 }
 
 .container{
-    max-width:800px;
+    max-width:900px;
     margin:auto;
     background:white;
     border-radius:25px;
-    padding:25px;
-    box-shadow:0 20px 45px rgba(0,0,0,.12);
+    padding:35px;
+    box-shadow:0 20px 60px rgba(0,0,0,.12);
 }
 
 h1{
@@ -40,13 +40,49 @@ h1{
     color:transparent;
     margin-bottom:20px;
 }
+.subtitle{
+    text-align:center;
+    color:#64748b;
+    font-size:16px;
+    margin-top:-10px;
+    margin-bottom:25px;
+    line-height:1.6;
+}
+    .hero-card{
 
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:white;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    margin-bottom:25px;
+
+    text-align:center;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+    h2,h3{
+
+    color:#2563eb;
+
+    margin-bottom:12px;
+
+}
 .info-box{
-    background:#eef6ff;
-    border-left:5px solid #3498db;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
+     background:white;
+    border:1px solid #dbeafe;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.06);
 }
 
 .info-box h3{
@@ -146,10 +182,14 @@ ul{
 }
 
 .prediction-fill{
-
-    height:100%;
-    background:linear-gradient(90deg,#06b6d4,#2563eb);
-
+ height:100%;
+ background:linear-gradient(90deg,#06b6d4,#2563eb);
+}
+    #preview{
+    margin-top:20px;
+    border:4px solid white;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 .info-box ol{
     padding-left: 25px;
@@ -169,7 +209,18 @@ ul{
 <div class="container">
 
 <h1>🩺ระบบคัดกรองโรคผิวหนังเบื้องต้น</h1>
+<p class="subtitle">
+    วิเคราะห์ภาพผิวหนังด้วย AI เพื่อช่วยประเมินความเสี่ยงของโรคผิวหนังเบื้องต้น
+</p>
+    <div class="hero-card">
 
+    🤖 AI วิเคราะห์ภาพผิวหนังได้มากกว่า <b>20 โรค</b><br><br>
+
+    📷 เพียงอัปโหลดรูปภาพ<br>
+    ⚡ ใช้เวลาเพียงไม่กี่วินาที<br>
+    🩺 ผลลัพธ์เป็นการคัดกรองเบื้องต้น
+
+</div>
 <div class="info-box">
 <h3>วิธีใช้งาน</h3>
 

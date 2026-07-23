@@ -14,7 +14,8 @@
 
 body{
     font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
-    background:#f8fafc;
+    background:
+    linear-gradient(135deg,#eef6ff,#ffffff,#f7fbff);
     min-height: 100vh;
     padding:30px;
 }
@@ -48,17 +49,17 @@ h1{
     margin-bottom:15px;
     line-height:1.6;
 }
-    .hero-card{
+.hero-card{
 
-    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    background:linear-gradient(135deg,#2563eb,#3b82f6,#60a5fa);
 
     color:white;
 
     padding:25px;
 
-    border-radius:20px;
+    border-radius:30px;
 
-    margin-bottom:15px;
+    margin-bottom:25px;
 
     text-align:center;
 
@@ -67,17 +68,22 @@ h1{
     line-height:1.8;
 
     box-shadow:0 10px 25px rgba(37,99,235,.25);
+    overflow: hidden;
+    position: relative;
 
 }
-    h2,h3{
-
-    color:#2563eb;
+h2{
+     
+    color:#1e40af;
 
     margin-bottom:12px;
 
 }
+h3{
+    color: #2563eb;
+}
 .info-box{
-     background:white;
+    background:white;
     border:1px solid #dbeafe;
     border-radius:18px;
     padding:20px;
@@ -182,14 +188,18 @@ ul{
 }
 
 .prediction-fill{
- height:100%;
- background:linear-gradient(90deg,#06b6d4,#2563eb);
+
+    height:100%;
+    background:linear-gradient(90deg,#06b6d4,#2563eb);
+
 }
-    #preview{
-    margin-top:20px;
-    border:4px solid white;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
+#preview{
+    display: none;
+    width: 280px;
+    margin:20px auto;
+    border-radius: 20px;
+    border: 4px solid white;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
 }
 .info-box ol{
     padding-left: 25px;
@@ -200,6 +210,58 @@ ul{
     margin-bottom: 8px;
     line-height: 1.6;
 }
+.upload-box{
+
+    display:block;
+
+    width:100%;
+
+    padding:25px;
+
+    text-align:center;
+
+    border:3px dashed #60a5fa;
+
+    border-radius:18px;
+
+    background:#f7fbff;
+
+    color:#2563eb;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin:20px 0;
+
+}
+
+.upload-box:hover{
+
+    background:#e0f2fe;
+
+    transform:scale(1.02);
+    .warning{
+
+    background:#fff7ed;
+
+    color:#92400e;
+
+    border-left:5px solid orange;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-bottom:15px;
+
+    text-align:left;
+
+}
+
+}
 </style>
 
 </head>
@@ -209,10 +271,11 @@ ul{
 <div class="container">
 
 <h1>🩺ระบบคัดกรองโรคผิวหนังเบื้องต้น</h1>
+
 <p class="subtitle">
     วิเคราะห์ภาพผิวหนังด้วย AI เพื่อช่วยประเมินความเสี่ยงของโรคผิวหนังเบื้องต้น
 </p>
-    <div class="hero-card">
+<div class="hero-card">
 
     🤖 AI วิเคราะห์ภาพผิวหนังได้ <b>20 โรค</b><br><br>
     📷 เพียงอัปโหลดรูปภาพ<br>
@@ -220,11 +283,12 @@ ul{
     🩺 ผลลัพธ์เป็นการคัดกรองเบื้องต้น
 
 </div>
+
 <div class="info-box">
 <h3>วิธีใช้งาน</h3>
 
  <ol>
-     <li>อัปโหลดเฉพาะรูปภาพผิวหนังเท่านั้น ควรถ่ายในบริเวณที่มีแสงเพียงพอและให้ผิวหนังปรากฏชัดเจน</li>
+    <li>อัปโหลดเฉพาะรูปภาพผิวหนังเท่านั้น ควรถ่ายในบริเวณที่มีแสงเพียงพอและให้ผิวหนังปรากฏชัดเจน</li>
     <li>เลือกรูปภาพที่ต้องการวิเคราะห์</li>
     <li>รอแสดงตัวอย่างรูปภาพ</li>
     <li>กดปุ่ม เริ่มการวิเคราะห์</li>
@@ -260,10 +324,29 @@ ul{
 </div>
 
 <div class="upload">
+    <div class="upload">
 
-<input type="file" id="fileInput" accept="image/*">
+<p class="warning">
+⚠️ กรุณาอัปโหลดเฉพาะภาพผิวหนังของมนุษย์เท่านั้น
+ผลการวิเคราะห์ภาพอื่นอาจไม่ถูกต้อง
+</p>
 
-<img id="preview">
+
+<label for="imageInput" class="upload-box">
+    📷 คลิกเพื่อเลือกรูปภาพผิวหนัง
+    <br>
+    <small>รองรับไฟล์ JPG, PNG, JPEG</small>
+</label>
+
+<input
+type="file"
+id="imageInput"
+accept="image/*"
+hidden>
+
+<img
+ id="preview"
+ alt="ตัวอย่างรูปภาพ">
 
 <button onclick="analyze()">เริ่มการวิเคราะห์</button>
 
@@ -278,6 +361,7 @@ ul{
         <p style="color: grey; font-size: 0.85rem; text-align: center; margin-top: 20px; margin-bottom: 20px;">
             ⚠️ หมายเหตุ: ผลการวิเคราะห์นี้ไม่ใช่คำวินิจฉัยจากแพทย์ เป็นเพียงคำแนะนำเบื้องต้นเท่านั้น
         </p>
+
 
 <p><b>โรคที่พบ :</b>
 <span id="disease">-</span>
@@ -324,7 +408,7 @@ border-left:4px solid #2563eb;">
 </div>
 
 <script>
-    const fileInput = document.getElementById("fileInput");
+    const fileInput = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
 
 fileInput.addEventListener("change", function () {
@@ -358,7 +442,7 @@ async function analyze() {
 
     try {
 
-        const response = await fetch("/predict", {
+        const response = await fetch("http://127.0.0.1:5000/predict", {
             method: "POST",
             body: formData
         });
